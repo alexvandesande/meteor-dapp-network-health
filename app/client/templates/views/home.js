@@ -125,7 +125,7 @@ Template['views_home'].helpers({
     @method (gasPrice)
     */
     'miningSlider': function(){
-        return 0;
+        return Miner.mining;
     } , 
     /**
     Returns Mining status handle
@@ -208,27 +208,10 @@ Template['views_home'].events({
 
     /**
     Change the mining slider
-    @event change input.slider-vertical 
+    @event change input.slider-vertical, input input.slider-vertical
     */
-    'change input.slider-vertical': function(e) {
-        var val = Number(e.currentTarget.value)
-        
-        //var miningText = ""; 
-        // switch (Number(e.currentTarget.value)) {
-        //     case 0:
-        //         miningText = "Off";
-        //         break;
-
-        //     case 1:
-        //         miningText = "On";
-        //         break;                
-        // }
-
-        $(".mining-status").text(val > 0.5 ? "On" : "Off");
-        $("input.slider-vertical").val( Math.round(val) );
+    'change input.slider-vertical, input input.slider-vertical': function(e) {   
+        Miner.mining = Number(e.currentTarget.value);
     }
-
-
-
 });
 

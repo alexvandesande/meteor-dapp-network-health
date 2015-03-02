@@ -9,9 +9,15 @@
     
     <div class="dapp container mining-stats">
         <div class="mining-slider dapp-big-number">
-            <input type="range" name="fee" min="0" max="1" step="0.01" value="{{miningSlider}}" class="slider-vertical">
+            <input type="range" name="fee" min="0" max="1" step="1" value="{{miningSlider}}" class="slider-vertical">
             <dd>Mining status</dd>
-            <dt class="mining-status">Off</dt>
+            <dt class="mining-status">
+                {{#if miningSlider}}
+                    On
+                {{else}}
+                    Off
+                {{/if}}
+            </dt>
         </div>
         <div class="dapp-big-number">
             <dd>Time Spent</dd>
