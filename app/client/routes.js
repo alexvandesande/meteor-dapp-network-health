@@ -18,8 +18,8 @@ The app routes
 
 // Router defaults
 Router.configure({
-    layoutTemplate: 'layout_main',
-    notFoundTemplate: 'layout_notFound',
+    layoutTemplate: 'views_home',
+    // notFoundTemplate: 'layout_notFound',
     yieldRegions: {
         'layout_header': {to: 'header'}
     }
