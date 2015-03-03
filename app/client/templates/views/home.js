@@ -177,7 +177,7 @@ Template['views_home'].helpers({
 
         if (totalRewards && totalRewards>0) {
 
-            var rewardPerBlock = 5;
+            var rewardPerBlock = 0.59;
             var finalReward = rewardPerBlock * Number(totalRewards);
 
             if (finalReward<1) {
@@ -199,11 +199,13 @@ Template['views_home'].helpers({
     */
     'averageRewardPerHour': function(){
         var totalRewards = MiningData.findOne().totalRewards;
-        
-        if (totalRewards && (localStorage.timeSpent>0) ) {
+        var totalTimeSpent = MiningData.findOne().totalTimeSpent;
 
-            var rewardPerBlock = 5;
-            var rewardRate = rewardPerBlock*10*60*60*Miner.totalRewards / Miner.timeSpentMining;
+        
+        if (totalRewards && (totalTimeSpent>0) ) {
+
+            var rewardPerBlock = 0.59;
+            var rewardRate = rewardPerBlock * 10 * 60 * 60 * totalRewards / totalTimeSpent;
 
             if (rewardRate<0.001) {
                 return Math.floor(100000 * rewardRate)/100 + "<small> Finney/h </small>"

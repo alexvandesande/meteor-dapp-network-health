@@ -1,85 +1,84 @@
 <template name="views_home">
     
     <div class="dapp-grid"></div>
-
-    <h2 class="page-title"> Network Health </h2>
+    <h2 class="page-title"> {{i18n 'network.home.NetworkHealth' }}</h2>
     
 
-    <h2> Mining </h2>
+    <h2> {{i18n 'network.home.Mining' }} </h2>
     
     <div class="dapp container mining-stats">
         <div class="mining-slider dapp-big-number">
             <input type="range" name="fee" min="0" max="1" step="1" value="{{miningSlider}}" class="slider-vertical">
-            <dd>Mining status </dd>
+            <dd>{{i18n 'network.home.MiningStatus' }}</dd>
             <dt class="mining-status">
                 {{#if miningSlider}}
                     {{#if hashrate}}
                         {{hashrate}} <small>KHash </small>
                     {{else}}
-                        On
+                        {{i18n 'network.home.on' }}
                     {{/if}}
                 {{else}}
-                    Off
+                    {{i18n 'network.home.off' }}
                 {{/if}}
                 
             </dt>
         </div>
         <div class="dapp-big-number">
-            <dd>Time Spent</dd>
+            <dd>{{i18n 'network.home.TimeSpent' }}</dd>
             <dt class="time-spent">{{{timeSpent}}}</dt>
         </div>        
         <div class="dapp-big-number">
-            <dd>Rewards</dd>
+            <dd>{{i18n 'network.home.Rewards' }}</dd>
             <dt>{{{totalRewards}}}</dt>
         </div>        
         <div class="dapp-big-number">
-            <dd>avg Return</dd>
+            <dd>{{i18n 'network.home.AverageReward' }}</dd>
             <dt> {{{averageRewardPerHour}}}</dt>
         </div>        
     </div>
 
     
-    <h2> Connections </h2>
+    <h2> {{i18n 'network.home.Connections' }} </h2>
 
     <div class="dapp-container">
 
         <dl class="latest-block-info">
 
             <div class="dapp-big-number">
-                <dd>Peer Count</dd>
-                <dt>{{peerCount}} <small> Peers </small></dt>
+                <dd>{{i18n 'network.home.PeerCount' }}</dd>
+                <dt>{{peerCount}} <small> {{i18n 'network.home.Peers' }} </small></dt>
             </div>
             <div class="dapp-big-number">
-                <dd>Gas Price</dd>
-                <dt>{{gasPrice}} <small> Finney </small></dt>
+                <dd>{{i18n 'network.home.GasPrice' }}</dd>
+                <dt>{{gasPrice}} <small> {{i18n 'network.home.Finney' }} </small></dt>
             </div>
         </dl>
 
     </div>
     
-    <h2> Block chain </h2>
+    <h2>  {{i18n 'network.home.Blockchain' }} </h2>
 
     <div class="block-chain">
         <div class="wrapper">
             {{#each blocks}}
                 <div class="dapp-box card" style="background-image:{{currentBlockPattern}}">
                     {{> dapp_identicon identity='miner'}}
-                    <h1>Block {{number}}</h1>
+                    <h1> {{i18n 'network.home.Block' }}  {{number}}</h1>
                     <h3>{{hash}}</h3>
                     <dl>
-                        <dd>Gas Used</dd>
+                        <dd> {{i18n 'network.home.GasUsed' }} </dd>
                         <dt>{{gasUsed}}</dt>
-                        <dd>Size</dd>
+                        <dd> {{i18n 'network.home.Size' }} </dd>
                         <dt>{{size}}</dt>
-                        <dd>Number of uncles</dd>
+                        <dd> {{i18n 'network.home.Uncles' }} </dd>
                         <dt>{{uncles}}</dt>
-                        <dd>Time</dd>
+                        <dd> {{i18n 'network.home.Time' }} </dd>
                         <dt>{{formatTime time 'YYYY-MM-DD HH:mm:ss'}}</dt>
                     </dl>
                 </div>
             {{/each}}
             <div class="" style="">
-                    <h3>End of loaded blocks.</h3>
+                <h3> {{i18n 'network.home.EndOfBlocks' }} </h3>
             </div>
         </div>
     </div>

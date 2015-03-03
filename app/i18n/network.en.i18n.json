@@ -1,0 +1,26 @@
+{
+    "network":  {
+        "home": {
+            "NetworkHealth": "Network Health",
+            "Mining": "Mining",
+            "MiningStatus": "Mining Status",
+            "on": "On",
+            "off": "Off",
+            "TimeSpent": "Time Spent",
+            "Rewards":"Rewards",
+            "AverageReward":"Average Reward",
+            "Connections":"Connections",
+            "PeerCount":"Peer Count",
+            "Peers":"Peers",
+            "GasPrice":"Gas Price",
+            "Finney":"Finney",
+            "Blockchain":"Blockchain",
+            "Block":"Block",
+            "GasUsed":"Gas Used",
+            "Size":"Size",
+            "Uncles":"Number of uncles",
+            "Time":"Time",
+            "EndOfBlocks":"No more loaded blocks"
+        }
+    }
+}
