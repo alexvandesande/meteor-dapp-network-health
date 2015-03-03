@@ -141,22 +141,24 @@ Template['views_home'].helpers({
     @method (gasPrice)
     */
     'timeSpent': function(){
-        if (Miner.timeSpentMining) {
-            if (Miner.timeSpentMining<(3*60)) {
+        var totalTimeSpent = MiningData.findOne().totalTimeSpent;
+
+        if (totalTimeSpent) {
+            if (totalTimeSpent<(3*60)) {
                 
-                return Math.round(Miner.timeSpentMining*10)/10 + "<small> Seconds </small>";
+                return Math.round(totalTimeSpent*10)/10 + "<small> Seconds </small>";
 
-            } else if (Miner.timeSpentMining<(3*60*60)) {
+            } else if (totalTimeSpent<(3*60*60)) {
 
-                return Math.round(10*Miner.timeSpentMining/60)/10 + "<small> Minutes </small>";
+                return Math.round(10*totalTimeSpent/60)/10 + "<small> Minutes </small>";
 
-            } else if (Miner.timeSpentMining<(60*60*24)) {
+            } else if (totalTimeSpent<(60*60*24)) {
 
-                return Math.round(10*Miner.timeSpentMining/(60*60))/10 + "<small> Hours </small>";
+                return Math.round(10*totalTimeSpent/(60*60))/10 + "<small> Hours </small>";
 
             } else {
 
-                return Math.round(10*Miner.timeSpentMining/(24*60*60))/10 + "<small> Days </small>";
+                return Math.round(10*totalTimeSpent/(24*60*60))/10 + "<small> Days </small>";
 
             }
 
@@ -171,12 +173,12 @@ Template['views_home'].helpers({
     @method (gasPrice)
     */
     'totalRewards': function(){
-        if (Miner.totalRewards && Miner.totalRewards>0) {
-            
-            //return localStorage.totalRewards;
+        var totalRewards = MiningData.findOne().totalRewards;
+
+        if (totalRewards && totalRewards>0) {
 
             var rewardPerBlock = 5;
-            var finalReward = rewardPerBlock * Number(Miner.totalRewards);
+            var finalReward = rewardPerBlock * Number(totalRewards);
 
             if (finalReward<1) {
                 return Math.floor(finalReward * 100000)/100 + "<small> Finney </small>"
@@ -196,7 +198,9 @@ Template['views_home'].helpers({
     @method (gasPrice)
     */
     'averageRewardPerHour': function(){
-        if (localStorage.totalRewards && (localStorage.timeSpent>0) ) {
+        var totalRewards = MiningData.findOne().totalRewards;
+        
+        if (totalRewards && (localStorage.timeSpent>0) ) {
 
             var rewardPerBlock = 5;
             var rewardRate = rewardPerBlock*10*60*60*Miner.totalRewards / Miner.timeSpentMining;

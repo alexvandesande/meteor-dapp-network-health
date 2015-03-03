@@ -39,5 +39,11 @@ Router.route('/', {
 });
 
 
+// DUMMY ROUTE
+Router.route('/profile', {
+    template: 'views_home',
+    name: 'userProfile'
+});
+
 
 

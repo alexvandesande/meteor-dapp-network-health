@@ -18,12 +18,8 @@ watcher.changed(function(result) {
 
     if (web3.eth.coinbase == web3.eth.block(result.number).coinbase ) {
         
-
-        if (localStorage.totalRewards) {
-            localStorage.totalRewards++;
-        } else {
-            localStorage.totalRewards = 1;
-        }
+        var miningData = MiningData.findOne();
+        MiningData.update(miningData._id, {$inc: {totalRewards: 1}});
 
     } 
 
