@@ -125,7 +125,15 @@ Template['views_home'].helpers({
     @method (gasPrice)
     */
     'miningSlider': function(){
-        return Miner.mining;
+        return Miner.mining || 0 ;
+    } ,     
+    /**
+    Returns Hashrate
+
+    @method (gasPrice)
+    */
+    'hashrate': function(){
+        return Miner.hashrate;
     } , 
     /**
     Returns Mining status handle
@@ -133,20 +141,27 @@ Template['views_home'].helpers({
     @method (gasPrice)
     */
     'timeSpent': function(){
-        if (localStorage.timeSpent) {
-            if (localStorage.timeSpent<(3*60)) {
-                return localStorage.timeSpent + "<small> Seconds </small>";
-            } else if (localStorage.timeSpent<(3*60*60)) {
-                return Math.round(10*localStorage.timeSpent/60)/10 + "<small> Minutes </small>";
-            } else if (localStorage.timeSpent<(60*60*24)) {
-                return Math.round(10*localStorage.timeSpent/(60*60))/10 + "<small> Hours </small>";
+        if (Miner.timeSpentMining) {
+            if (Miner.timeSpentMining<(3*60)) {
+                
+                return Math.round(Miner.timeSpentMining*10)/10 + "<small> Seconds </small>";
+
+            } else if (Miner.timeSpentMining<(3*60*60)) {
+
+                return Math.round(10*Miner.timeSpentMining/60)/10 + "<small> Minutes </small>";
+
+            } else if (Miner.timeSpentMining<(60*60*24)) {
+
+                return Math.round(10*Miner.timeSpentMining/(60*60))/10 + "<small> Hours </small>";
+
             } else {
-                return Math.round(10*localStorage.timeSpent/(24*60*60))/10 + "<small> Days </small>";
+
+                return Math.round(10*Miner.timeSpentMining/(24*60*60))/10 + "<small> Days </small>";
+
             }
 
             
         } else {
-            localStorage.timeSpent = 0;
             return "---";
         }
     } , 
@@ -156,23 +171,22 @@ Template['views_home'].helpers({
     @method (gasPrice)
     */
     'totalRewards': function(){
-        if (localStorage.totalRewards && localStorage.totalRewards>0) {
+        if (Miner.totalRewards && Miner.totalRewards>0) {
             
             //return localStorage.totalRewards;
 
             var rewardPerBlock = 5;
-            var finalReward = rewardPerBlock * Number(localStorage.totalRewards);
+            var finalReward = rewardPerBlock * Number(Miner.totalRewards);
 
-            if (finalReward<0.001) {
+            if (finalReward<1) {
                 return Math.floor(finalReward * 100000)/100 + "<small> Finney </small>"
             } else if (finalReward>1000) {
                 return Math.floor(finalReward/10)/100 + "<small> KEther </small>"
             } else {
-                return Math.floor(finalReward)/100 + "<small> Ether </small>"
+                return Math.floor(finalReward*100)/100 + "<small> Ether </small>"
             } 
 
         } else {
-            localStorage.totalRewards = 0;
             return "---";
         }
     } , 
@@ -185,7 +199,7 @@ Template['views_home'].helpers({
         if (localStorage.totalRewards && (localStorage.timeSpent>0) ) {
 
             var rewardPerBlock = 5;
-            var rewardRate = rewardPerBlock*10*60*60*localStorage.totalRewards / localStorage.timeSpent;
+            var rewardRate = rewardPerBlock*10*60*60*Miner.totalRewards / Miner.timeSpentMining;
 
             if (rewardRate<0.001) {
                 return Math.floor(100000 * rewardRate)/100 + "<small> Finney/h </small>"
