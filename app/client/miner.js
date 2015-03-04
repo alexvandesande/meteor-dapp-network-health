@@ -21,7 +21,6 @@ var addProperty = function(Miner, name, defaultValue){
     });
 };
 
-
 Miner = {};
 
 addProperty(Miner, 'mining', 0);

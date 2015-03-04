@@ -10,6 +10,7 @@ new PersistentMinimongo(MiningData);
 if(!MiningData.findOne()) {
     MiningData.insert({
         totalTimeSpent: 0,
+        lastCoinbaseBalance: 0,
         totalRewards: 0
     });
 }

@@ -177,15 +177,12 @@ Template['views_home'].helpers({
 
         if (totalRewards && totalRewards>0) {
 
-            var rewardPerBlock = 0.59;
-            var finalReward = rewardPerBlock * Number(totalRewards);
-
-            if (finalReward<1) {
-                return Math.floor(finalReward * 100000)/100 + "<small> Finney </small>"
-            } else if (finalReward>1000) {
-                return Math.floor(finalReward/10)/100 + "<small> KEther </small>"
+            if (totalRewards<1) {
+                return Math.floor(totalRewards * 100000)/100 + "<small> Finney </small>"
+            } else if (totalRewards>1000) {
+                return Math.floor(totalRewards) + "<small> Ether </small>"
             } else {
-                return Math.floor(finalReward*100)/100 + "<small> Ether </small>"
+                return Math.floor(totalRewards*100)/100 + "<small> Ether </small>"
             } 
 
         } else {
@@ -204,13 +201,12 @@ Template['views_home'].helpers({
         
         if (totalRewards && (totalTimeSpent>0) ) {
 
-            var rewardPerBlock = 0.59;
-            var rewardRate = rewardPerBlock * 10 * 60 * 60 * totalRewards / totalTimeSpent;
+            var rewardRate =   3600 * totalRewards / totalTimeSpent;
 
             if (rewardRate<0.001) {
                 return Math.floor(100000 * rewardRate)/100 + "<small> Finney/h </small>"
             } else if (rewardRate>1000) {
-                return Math.floor(rewardRate/10)/100 + "<small> KEther/h </small>"
+                return Math.floor(rewardRate) + "<small> Ether/h </small>"
             } else {
                 return Math.floor(100 * rewardRate)/100 + "<small> Ether/h </small>"
             }

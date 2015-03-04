@@ -1,6 +1,5 @@
 var watcher = web3.eth.watch('chain');
 watcher.changed(function(result) {
-    console.log('Block arrived', result);
 
     result.number = web3.eth.number;
 
@@ -19,8 +18,30 @@ watcher.changed(function(result) {
     if (web3.eth.coinbase == web3.eth.block(result.number).coinbase ) {
         
         var miningData = MiningData.findOne();
-        MiningData.update(miningData._id, {$inc: {totalRewards: 1}});
+        lastBalance = miningData.lastCoinbaseBalance || 0;
+        
+        // This will include any other money sent to this address in this block on the calculation
 
-    } 
+        WeiToFin = 1000000000000000;
+        currentBalance = Number(web3.toDecimal(web3.eth.balanceAt(web3.eth.coinbase)))/WeiToFin;
+        blockReward  = currentBalance - lastBalance;
+        
+        console.log("New Block! last balance: " + miningData.lastCoinbaseBalance + " Reward: " + blockReward );
+
+        MiningData.update(miningData._id, {$inc: {totalRewards: blockReward}});
+        MiningData.update(miningData._id, {$set: {lastCoinbaseBalance: currentBalance}});
+
+
+    } else {
+
+        WeiToFin = 1000000000000000;
+        currentBalance = Number(web3.toDecimal(web3.eth.balanceAt(web3.eth.coinbase)))/WeiToFin;
+        
+        var miningData = MiningData.findOne();        
+        MiningData.update(miningData._id, {lastCoinbaseBalance: currentBalance});
+
+        console.log("New Block! last balance: " + miningData.lastCoinbaseBalance );
+
+    }
 
 });

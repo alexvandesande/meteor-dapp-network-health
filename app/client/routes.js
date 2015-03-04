@@ -13,16 +13,18 @@ The app routes
 
 
 // Change the URLS to use #! instead of real paths
-// Iron.Location.configure({useHashPaths: true});
+//Iron.Location.configure({useHashPaths: true});
 
 
 // Router defaults
 Router.configure({
-    layoutTemplate: 'views_home',
+    layoutTemplate: 'layout_main',
     // notFoundTemplate: 'layout_notFound',
     yieldRegions: {
         'layout_header': {to: 'header'}
-    }
+    },
+    autoRun: false,
+    autoRender: false
 });
 
 
