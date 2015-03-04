@@ -177,12 +177,12 @@ Template['views_home'].helpers({
 
         if (totalRewards && totalRewards>0) {
 
-            if (totalRewards<1) {
-                return Math.floor(totalRewards * 100000)/100 + "<small> Finney </small>"
-            } else if (totalRewards>1000) {
-                return Math.floor(totalRewards) + "<small> Ether </small>"
+            if (totalRewards<1000) {
+                return Math.floor(totalRewards * 100)/100 + "<small> Finney </small>"
+            } else if (totalRewards>1000000) {
+                return Math.floor(totalRewards/1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<small> Ether </small>"
             } else {
-                return Math.floor(totalRewards*100)/100 + "<small> Ether </small>"
+                return Math.floor(totalRewards/10)/100 + "<small> Ether </small>"
             } 
 
         } else {
@@ -203,19 +203,20 @@ Template['views_home'].helpers({
 
             var rewardRate =   3600 * totalRewards / totalTimeSpent;
 
-            if (rewardRate<0.001) {
-                return Math.floor(100000 * rewardRate)/100 + "<small> Finney/h </small>"
-            } else if (rewardRate>1000) {
-                return Math.floor(rewardRate) + "<small> Ether/h </small>"
+            if (rewardRate<1000) {
+                return Math.floor(rewardRate * 100)/100 + "<small> Finney/h </small>"
+            } else if (rewardRate>1000000) {
+                return (Math.floor(rewardRate/1000)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<small> Ether/h </small>"
             } else {
-                return Math.floor(100 * rewardRate)/100 + "<small> Ether/h </small>"
+                return Math.floor(rewardRate/10)/100 + "<small> Ether/h </small>"
             }
 
             return reward;
         } else {
             return "---";
-        }
-    } 
+        } 
+    }
+     
 });
 
 
@@ -230,4 +231,5 @@ Template['views_home'].events({
         Miner.mining = Number(e.currentTarget.value);
     }
 });
+
 

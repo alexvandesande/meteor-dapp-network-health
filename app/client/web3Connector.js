@@ -18,11 +18,13 @@ watcher.changed(function(result) {
     if (web3.eth.coinbase == web3.eth.block(result.number).coinbase ) {
         
         var miningData = MiningData.findOne();
-        lastBalance = miningData.lastCoinbaseBalance || 0;
+
+        WeiToFin = 1000000000000000;
+
+        lastBalance = miningData.lastCoinbaseBalance || Number(web3.toDecimal(web3.eth.balanceAt(web3.eth.coinbase)))/WeiToFin;
         
         // This will include any other money sent to this address in this block on the calculation
 
-        WeiToFin = 1000000000000000;
         currentBalance = Number(web3.toDecimal(web3.eth.balanceAt(web3.eth.coinbase)))/WeiToFin;
         blockReward  = currentBalance - lastBalance;
         
@@ -31,6 +33,7 @@ watcher.changed(function(result) {
         MiningData.update(miningData._id, {$inc: {totalRewards: blockReward}});
         MiningData.update(miningData._id, {$set: {lastCoinbaseBalance: currentBalance}});
 
+        //localStorage.clear();
 
     } else {
 
